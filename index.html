@@ -486,10 +486,492 @@
   }
   .checkout-card input::placeholder, .checkout-card textarea::placeholder { color: rgba(255,255,255,0.5); }
 
-  @media (max-width: 500px) {
-    .info-grid { grid-template-columns: 1fr; }
-    .checkout-grid { grid-template-columns: 1fr; }
-    .score-tracker { font-size: 12px; padding: 8px 14px; }
+  /* ══════════════════════════════════════
+     PAINEL DO DONO
+  ══════════════════════════════════════ */
+  #painel-dono {
+    display: none;
+    min-height: 100vh;
+    background: #f0f0f0;
+    padding-bottom: 40px;
+  }
+  .painel-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.35);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .painel-header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .painel-header h1 span { color: #F5C400; }
+  .btn-sair-painel {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .painel-body { max-width: 760px; margin: 0 auto; padding: 18px 14px; }
+
+  /* Filtros */
+  .painel-filtros {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .painel-filtros select {
+    flex: 1; min-width: 120px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 9px 10px;
+    font-size: 13px;
+    font-family: 'Open Sans',sans-serif;
+    color: #1a1a1a;
+  }
+  .painel-filtros select:focus { border-color: #CC1F2B; outline: none; }
+  .btn-filtrar {
+    background: #CC1F2B;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .btn-limpar-dados {
+    background: #555;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  /* KPI cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .kpi-card {
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    border-top: 4px solid #CC1F2B;
+  }
+  .kpi-card.verde { border-top-color: #2e7d32; }
+  .kpi-card.amarelo { border-top-color: #F5C400; }
+  .kpi-num {
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    color: #CC1F2B;
+    line-height: 1;
+  }
+  .kpi-card.verde .kpi-num { color: #2e7d32; }
+  .kpi-card.amarelo .kpi-num { color: #c9a000; }
+  .kpi-label {
+    font-size: 10px;
+    color: #777;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+    font-family: 'Montserrat',sans-serif;
+  }
+
+  /* Painel cards */
+  .painel-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  }
+  .painel-card h3 {
+    font-family: 'Montserrat',sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: #CC1F2B;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Ranking */
+  .rank-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .rank-item:last-child { border-bottom: none; }
+  .rank-pos {
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    width: 26px;
+    text-align: center;
+    color: #CC1F2B;
+  }
+  .rank-loja {
+    font-weight: 700;
+    font-size: 13px;
+    flex: 1;
+  }
+  .rank-bar-wrap {
+    flex: 2;
+    background: #f0f0f0;
+    border-radius: 20px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .rank-bar-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: #CC1F2B;
+    transition: width 0.6s ease;
+  }
+  .rank-pts {
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    min-width: 50px;
+    text-align: right;
+  }
+
+  /* Alertas */
+  .alerta-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .alerta-item.vermelho { background: #ffeaea; border-left: 4px solid #CC1F2B; }
+  .alerta-item.amarelo  { background: #fff9e6; border-left: 4px solid #F5C400; }
+  .alerta-item.verde    { background: #e8f5e9; border-left: 4px solid #2e7d32; }
+  .alerta-icon { font-size: 18px; flex-shrink: 0; }
+  .alerta-txt  { line-height: 1.4; }
+  .alerta-txt strong { font-weight: 700; }
+
+  /* Evolução */
+  .evolucao-loja-bloco { margin-bottom: 14px; }
+  .evolucao-loja-titulo {
+    font-family: 'Montserrat',sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  .evolucao-semanas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .ev-sem {
+    background: #f4f4f4;
+    border-radius: 8px;
+    padding: 8px 4px;
+    text-align: center;
+  }
+  .ev-sem-label { font-size: 10px; color: #888; font-weight: 600; font-family: 'Montserrat',sans-serif; }
+  .ev-sem-pts {
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    margin-top: 2px;
+  }
+  .ev-sem-pct { font-size: 10px; color: #888; }
+  .ev-sem.s-verde { background: #e8f5e9; }
+  .ev-sem.s-amarelo { background: #fff9e6; }
+  .ev-sem.s-vermelho { background: #ffeaea; }
+  .ev-seta { font-size: 13px; }
+
+  /* Comparativo tabela */
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .comp-table th {
+    background: #1a1a2e;
+    color: white;
+    padding: 7px 8px;
+    text-align: left;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+  }
+  .comp-table td { padding: 7px 8px; border-bottom: 1px solid #f0f0f0; }
+  .comp-table tr:last-child td { border-bottom: none; }
+  .comp-table tr:hover td { background: #fafafa; }
+  .badge-rank {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+    font-family: 'Montserrat',sans-serif;
+  }
+  .badge-rank.verde { background: #e8f5e9; color: #2e7d32; }
+  .badge-rank.amarelo { background: #fff9e6; color: #c9a000; }
+  .badge-rank.vermelho { background: #ffeaea; color: #CC1F2B; }
+
+  /* Histórico lista */
+  .hist-item {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #fafafa;
+    margin-bottom: 7px;
+    border-left: 4px solid #ddd;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .hist-item:hover { border-left-color: #CC1F2B; background: #fff5f5; }
+  .hist-item-top { display: flex; justify-content: space-between; align-items: center; }
+  .hist-item-loja { font-weight: 700; font-size: 13px; }
+  .hist-item-pts { font-family: 'Montserrat',sans-serif; font-weight: 800; font-size: 14px; color: #CC1F2B; }
+  .hist-item-meta { font-size: 11px; color: #888; margin-top: 2px; }
+
+  /* senha modal */
+  #senha-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  #senha-modal.aberto { display: flex; }
+  .senha-box {
+    background: white;
+    border-radius: 16px;
+    padding: 32px 28px;
+    max-width: 320px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .senha-box h2 {
+    font-family: 'Montserrat',sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: #CC1F2B;
+    margin-bottom: 6px;
+  }
+  .senha-box p { font-size: 13px; color: #777; margin-bottom: 18px; }
+  .senha-box input {
+    width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 6px;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .senha-box input:focus { border-color: #CC1F2B; outline: none; }
+  .btn-entrar-painel {
+    width: 100%;
+    background: #CC1F2B;
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: 8px;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 8px;
+  }
+  .btn-cancelar-painel {
+    width: 100%;
+    background: #f4f4f4;
+    color: #555;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .senha-erro { color: #CC1F2B; font-size: 12px; font-weight: 700; margin-top: 6px; }
+
+  /* Botão oculto */
+  #btn-acesso-dono {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    background: rgba(26,26,46,0.85);
+    color: rgba(255,255,255,0.4);
+    border: none;
+    border-radius: 50%;
+    width: 36px; height: 36px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #btn-acesso-dono:hover { background: rgba(26,26,46,1); color: #F5C400; }
+
+  .semanas-nav {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .sem-nav-btn {
+    padding: 5px 12px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    background: #f4f4f4;
+    font-size: 11px;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    color: #555;
+  }
+  .sem-nav-btn.active { background: #CC1F2B; border-color: #CC1F2B; color: white; }
+
+  .vazio-msg {
+    text-align: center;
+    padding: 30px 20px;
+    color: #aaa;
+    font-size: 13px;
+  }
+  .vazio-msg div { font-size: 36px; margin-bottom: 8px; }
+
+  @media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: repeat(3,1fr); }
+    .evolucao-semanas { grid-template-columns: repeat(2,1fr); }
+  }
+
+  /* ── UNIDADE CHECKBOXES ── */
+  .unidade-box {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 12px;
+    background: #fafafa;
+  }
+  .unidade-todas-wrap {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .unidade-item, .unidade-todas-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    color: #1a1a1a;
+    font-weight: 600;
+    user-select: none;
+  }
+  .unidade-item input[type="checkbox"],
+  .unidade-todas-label input[type="checkbox"] { display: none; }
+  .chk-custom {
+    width: 20px; height: 20px;
+    border: 2px solid #CC1F2B;
+    border-radius: 5px;
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .unidade-item input:checked ~ .chk-custom,
+  .unidade-todas-label input:checked ~ .chk-custom {
+    background: #CC1F2B;
+    border-color: #CC1F2B;
+  }
+  .unidade-item input:checked ~ .chk-custom::after,
+  .unidade-todas-label input:checked ~ .chk-custom::after {
+    content: '';
+    display: block;
+    width: 5px; height: 9px;
+    border: 2px solid white;
+    border-top: none; border-left: none;
+    transform: rotate(45deg) translateY(-1px);
+  }
+
+  /* ── UNIDADE BLOCO COM SEMANA INLINE ── */
+  .unidade-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .unidade-bloco {
+    border: 2px solid #eee;
+    border-radius: 10px;
+    padding: 8px 10px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .unidade-bloco.selecionado {
+    border-color: #CC1F2B;
+    box-shadow: 0 2px 10px rgba(204,31,43,0.12);
+    background: #fff5f5;
+  }
+  .sem-inline {
+    display: none;
+    grid-template-columns: repeat(4,1fr);
+    gap: 4px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #f0d0d0;
+  }
+  .unidade-bloco.selecionado .sem-inline { display: grid; }
+  .sem-inline-btn {
+    padding: 6px 2px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    background: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .sem-inline-btn:hover { border-color: #CC1F2B; color: #CC1F2B; }
+  .sem-inline-btn.active {
+    background: #CC1F2B;
+    border-color: #CC1F2B;
+    color: #fff;
   }
 </style>
 </head>
@@ -529,10 +1011,132 @@
       </div>
     </div>
     <div style="margin-top:16px;" class="info-grid">
+
+      <!-- UNIDADES COM SEMANA INTERNA -->
       <div class="full">
-        <label class="field-label">Unidade (Loja)</label>
-        <input type="text" id="info-unidade" placeholder="Nome ou código da loja">
+        <label class="field-label">Unidade (Loja) e Semana</label>
+        <div class="unidade-box">
+          <div class="unidade-todas-wrap">
+            <label class="unidade-todas-label">
+              <input type="checkbox" id="chk-todas" onchange="toggleTodas(this)">
+              <span class="chk-custom"></span>
+              <span style="font-weight:700; color:#CC1F2B;">Selecionar Todas as Lojas</span>
+            </label>
+          </div>
+          <div class="unidade-grid" id="unidade-grid">
+            <div class="unidade-bloco" id="bloco-LOJA2">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 2" onchange="toggleSemanaLoja('LOJA2',this)"><span class="chk-custom"></span>LOJA 2</label>
+              <div class="sem-inline" id="sem-LOJA2">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA2','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA2','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA2','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA2','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA3">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 3" onchange="toggleSemanaLoja('LOJA3',this)"><span class="chk-custom"></span>LOJA 3</label>
+              <div class="sem-inline" id="sem-LOJA3">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA3','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA3','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA3','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA3','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA4">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 4" onchange="toggleSemanaLoja('LOJA4',this)"><span class="chk-custom"></span>LOJA 4</label>
+              <div class="sem-inline" id="sem-LOJA4">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA4','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA4','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA4','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA4','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA6">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 6" onchange="toggleSemanaLoja('LOJA6',this)"><span class="chk-custom"></span>LOJA 6</label>
+              <div class="sem-inline" id="sem-LOJA6">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA6','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA6','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA6','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA6','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA7">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 7" onchange="toggleSemanaLoja('LOJA7',this)"><span class="chk-custom"></span>LOJA 7</label>
+              <div class="sem-inline" id="sem-LOJA7">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA7','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA7','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA7','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA7','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA8">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 8" onchange="toggleSemanaLoja('LOJA8',this)"><span class="chk-custom"></span>LOJA 8</label>
+              <div class="sem-inline" id="sem-LOJA8">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA8','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA8','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA8','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA8','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA9">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 9" onchange="toggleSemanaLoja('LOJA9',this)"><span class="chk-custom"></span>LOJA 9</label>
+              <div class="sem-inline" id="sem-LOJA9">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA9','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA9','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA9','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA9','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA10">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 10" onchange="toggleSemanaLoja('LOJA10',this)"><span class="chk-custom"></span>LOJA 10</label>
+              <div class="sem-inline" id="sem-LOJA10">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA10','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA10','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA10','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA10','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA11">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 11" onchange="toggleSemanaLoja('LOJA11',this)"><span class="chk-custom"></span>LOJA 11</label>
+              <div class="sem-inline" id="sem-LOJA11">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA11','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA11','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA11','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA11','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA12">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 12" onchange="toggleSemanaLoja('LOJA12',this)"><span class="chk-custom"></span>LOJA 12</label>
+              <div class="sem-inline" id="sem-LOJA12">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA12','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA12','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA12','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA12','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA13">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 13" onchange="toggleSemanaLoja('LOJA13',this)"><span class="chk-custom"></span>LOJA 13</label>
+              <div class="sem-inline" id="sem-LOJA13">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA13','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA13','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA13','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA13','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+            <div class="unidade-bloco" id="bloco-LOJA14">
+              <label class="unidade-item"><input type="checkbox" name="unidade" value="LOJA 14" onchange="toggleSemanaLoja('LOJA14',this)"><span class="chk-custom"></span>LOJA 14</label>
+              <div class="sem-inline" id="sem-LOJA14">
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA14','1a Semana',this)">1ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA14','2a Semana',this)">2ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA14','3a Semana',this)">3ª</button>
+                <button type="button" class="sem-inline-btn" onclick="selectSemanaLoja('LOJA14','4a Semana',this)">4ª</button>
+              </div>
+            </div>
+          </div>
+          <div id="unidade-resumo" style="margin-top:10px; font-size:12px; color:#CC1F2B; font-weight:700; min-height:18px;"></div>
+        </div>
       </div>
+
       <div class="full">
         <label class="field-label">Aplicado por (Supervisor)</label>
         <input type="text" id="info-supervisor" placeholder="Nome do supervisor">
@@ -600,6 +1204,107 @@
   <span>📊</span>
   <span class="score-pts" id="trackerScore">0</span>
   <span class="score-max">/ 1320 pts</span>
+</div>
+
+<!-- BOTÃO OCULTO DONO -->
+<button id="btn-acesso-dono" title="Acesso restrito" onclick="abrirSenhaModal()">🔒</button>
+
+<!-- MODAL SENHA -->
+<div id="senha-modal">
+  <div class="senha-box">
+    <div style="font-size:40px; margin-bottom:10px;">🔐</div>
+    <h2>Painel do Gestor</h2>
+    <p>Digite a senha de acesso</p>
+    <input type="password" id="senha-input" placeholder="••••••" maxlength="10"
+      onkeydown="if(event.key==='Enter') verificarSenha()">
+    <div class="senha-erro" id="senha-erro"></div>
+    <button class="btn-entrar-painel" onclick="verificarSenha()">Entrar</button>
+    <button class="btn-cancelar-painel" onclick="fecharSenhaModal()">Cancelar</button>
+  </div>
+</div>
+
+<!-- PAINEL DO DONO -->
+<div id="painel-dono">
+  <div class="painel-header">
+    <div>
+      <h1>Painel do <span>Gestor</span></h1>
+      <div style="font-size:11px; opacity:0.6; margin-top:2px;">Drogarias Ultra Popular</div>
+    </div>
+    <button class="btn-sair-painel" onclick="sairPainel()">← Sair</button>
+  </div>
+
+  <div class="painel-body">
+
+    <!-- Filtros -->
+    <div class="painel-filtros">
+      <select id="f-mes">
+        <option value="">Todos os Meses</option>
+        <option>Janeiro</option><option>Fevereiro</option><option>Marco</option>
+        <option>Abril</option><option>Maio</option><option>Junho</option>
+        <option>Julho</option><option>Agosto</option><option>Setembro</option>
+        <option>Outubro</option><option>Novembro</option><option>Dezembro</option>
+      </select>
+      <select id="f-loja">
+        <option value="">Todas as Lojas</option>
+        <option>LOJA 2</option><option>LOJA 3</option><option>LOJA 4</option>
+        <option>LOJA 6</option><option>LOJA 7</option><option>LOJA 8</option>
+        <option>LOJA 9</option><option>LOJA 10</option><option>LOJA 11</option>
+        <option>LOJA 12</option><option>LOJA 13</option><option>LOJA 14</option>
+      </select>
+      <select id="f-turno">
+        <option value="">Todos os Turnos</option>
+        <option>Manhã</option><option>Tarde</option>
+      </select>
+      <button class="btn-filtrar" onclick="renderPainel()">🔍 Filtrar</button>
+      <button class="btn-limpar-dados" onclick="limparTodosDados()">🗑 Limpar</button>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid" id="kpi-grid"></div>
+
+    <!-- Alertas -->
+    <div class="painel-card" id="card-alertas">
+      <h3>⚠️ Alertas de Desempenho</h3>
+      <div id="alertas-body"></div>
+    </div>
+
+    <!-- Ranking -->
+    <div class="painel-card">
+      <h3>🏆 Ranking das Lojas</h3>
+      <div id="ranking-body"></div>
+    </div>
+
+    <!-- Comparativo -->
+    <div class="painel-card">
+      <h3>📊 Comparativo por Semana</h3>
+      <div id="comparativo-body"></div>
+    </div>
+
+    <!-- Evolução -->
+    <div class="painel-card">
+      <h3>📈 Evolução Semanal por Loja</h3>
+      <div id="evolucao-body"></div>
+    </div>
+
+    <!-- Histórico -->
+    <div class="painel-card">
+      <h3>📋 Histórico de Avaliações</h3>
+      <div id="historico-body"></div>
+    </div>
+
+    <!-- Resumo por Seção -->
+    <div class="painel-card">
+      <h3>📑 Resumo por Seção (última avaliação selecionada)</h3>
+      <div id="secoes-filtro-wrap" style="margin-bottom:12px;">
+        <label style="font-size:12px; font-weight:700; color:#CC1F2B; font-family:Montserrat,sans-serif;">Selecionar avaliação:</label>
+        <select id="secoes-select" onchange="renderSecoes()" style="width:100%; margin-top:6px; border:2px solid #ddd; border-radius:8px; padding:8px 10px; font-size:13px; font-family:Open Sans,sans-serif;">
+          <option value="">— Selecione uma avaliação —</option>
+        </select>
+      </div>
+      <div id="secoes-body"><div class="vazio-msg"><div>📑</div>Selecione uma avaliação acima para ver o desempenho por seção.</div></div>
+    </div>
+
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -909,10 +1614,103 @@ function updateProgress() {
   document.getElementById('progressBar').style.width = pct + '%';
 }
 
-// ─── SUBMIT ───────────────────────────────────────────────────────────────────
+// ─── UNIDADE & SEMANA POR LOJA ────────────────────────────────────────────────
+// semanasPorLoja = { 'LOJA2': '1a Semana', 'LOJA3': '3a Semana', ... }
+const semanasPorLoja = {};
+
+function toggleSemanaLoja(lojaId, chk) {
+  const bloco = document.getElementById('bloco-' + lojaId);
+  if (chk.checked) {
+    bloco.classList.add('selecionado');
+  } else {
+    bloco.classList.remove('selecionado');
+    // clear semana selection
+    bloco.querySelectorAll('.sem-inline-btn').forEach(b => b.classList.remove('active'));
+    delete semanasPorLoja[lojaId];
+  }
+  atualizaUnidade();
+}
+
+function selectSemanaLoja(lojaId, semana, btn) {
+  // mark only this button active within this bloco
+  const bloco = document.getElementById('bloco-' + lojaId);
+  bloco.querySelectorAll('.sem-inline-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  semanasPorLoja[lojaId] = semana;
+}
+
+function toggleTodas(chk) {
+  document.querySelectorAll('input[name="unidade"]').forEach(c => {
+    c.checked = chk.checked;
+    const lojaId = c.value.replace(/\s/g,'');
+    const bloco = document.getElementById('bloco-' + lojaId);
+    if (bloco) {
+      if (chk.checked) bloco.classList.add('selecionado');
+      else {
+        bloco.classList.remove('selecionado');
+        bloco.querySelectorAll('.sem-inline-btn').forEach(b => b.classList.remove('active'));
+        delete semanasPorLoja[lojaId];
+      }
+    }
+  });
+  atualizaUnidade();
+}
+
+function atualizaUnidade() {
+  const selecionadas = [...document.querySelectorAll('input[name="unidade"]:checked')].map(c => c.value);
+  const total = document.querySelectorAll('input[name="unidade"]').length;
+  document.getElementById('chk-todas').checked = selecionadas.length === total;
+  const resumo = document.getElementById('unidade-resumo');
+  if (selecionadas.length === 0) {
+    resumo.textContent = '';
+  } else {
+    const partes = selecionadas.map(l => {
+      const id = l.replace(/\s/g,'');
+      const sem = semanasPorLoja[id];
+      return l + (sem ? ' (' + sem + ')' : ' (sem semana)');
+    });
+    resumo.textContent = 'Selecionadas: ' + partes.join(' | ');
+  }
+}
+
+function getUnidadesSelecionadas() {
+  return [...document.querySelectorAll('input[name="unidade"]:checked')].map(c => c.value);
+}
+
+function getSemanaParaLoja(loja) {
+  const id = loja.replace(/\s/g,'');
+  return semanasPorLoja[id] || '—';
+}
+
+
 function submitForm() {
   if (!document.getElementById('turno-val').value) {
-    alert('Por favor, selecione o turno (Manhã ou Tarde)!');
+    alert('Por favor, selecione o Turno (Manhã ou Tarde)!');
+    return;
+  }
+  const lojasSel = getUnidadesSelecionadas();
+  if (lojasSel.length === 0) {
+    alert('Por favor, selecione ao menos uma Unidade (Loja)!');
+    return;
+  }
+  const semFaltando = lojasSel.filter(l => !semanasPorLoja[l.replace(/\s/g,'')]);
+  if (semFaltando.length > 0) {
+    alert('Selecione a semana para: ' + semFaltando.join(', '));
+    return;
+  }
+  if (!document.getElementById('info-supervisor').value.trim()) {
+    alert('Por favor, preencha o nome do Supervisor!');
+    document.getElementById('info-supervisor').focus();
+    return;
+  }
+  if (!document.getElementById('info-data').value) {
+    alert('Por favor, preencha a Data da Avaliação!');
+    document.getElementById('info-data').focus();
+    return;
+  }
+  if (!document.getElementById('info-hora').value) {
+    alert('Por favor, preencha a Hora do Check-In!');
+    document.getElementById('info-hora').focus();
     return;
   }
 
@@ -942,6 +1740,7 @@ function submitForm() {
 }
 
 function showSuccess() {
+  salvarAvaliacao();
   document.getElementById('formArea').style.display = 'none';
   document.getElementById('success-screen').style.display = 'block';
   document.querySelector('.score-tracker').style.display = 'none';
@@ -1009,35 +1808,41 @@ function gerarPDF() {
   fillRect(0, 0, W, 28, RED);
   // Title text
   setFont('bold', 14, WHITE);
-  doc.text('RELATÓRIO DE AVALIAÇÃO GERAL DE LOJA', MARGIN, 11);
+  doc.text('RELATORIO DE AVALIACAO GERAL DE LOJA', MARGIN, 11);
   setFont('normal', 9, YELLOW);
-  doc.text('Drogarias Ultra Popular – Supervisão', MARGIN, 17);
+  doc.text('Drogarias Ultra Popular - Supervisao', MARGIN, 17);
   // Yellow accent bar
   fillRect(0, 28, W, 3, YELLOW);
   y = 38;
 
   // ── INFO TABLE
-  const unidade    = document.getElementById('info-unidade').value   || '—';
+  const unidadesSel = getUnidadesSelecionadas();
+  const unidade    = unidadesSel.length > 0 ? unidadesSel.map(l => l + ' (' + getSemanaParaLoja(l) + ')').join(', ') : '—';
   const supervisor = document.getElementById('info-supervisor').value || '—';
   const data       = document.getElementById('info-data').value       || '—';
   const hora       = document.getElementById('info-hora').value       || '—';
   const turno      = document.getElementById('turno-val').value       || '—';
+  const meses      = ['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const mesNum     = data ? parseInt(data.split('-')[1],10)-1 : new Date().getMonth();
+  const mes        = meses[mesNum] || '—';
   const checkoutD  = document.getElementById('checkout-data').value  || '—';
   const checkoutH  = document.getElementById('checkout-hora').value  || '—';
   const checkObs   = document.getElementById('checkout-obs').value   || '';
   const checkinObs = document.getElementById('info-checkin-obs').value || '';
   const pct        = Math.round(currentScore / 1320 * 100);
 
-  // Info box
-  fillRect(MARGIN, y, contentW, 32, LGRAY);
-  doc.setDrawColor(...MGRAY);
-  doc.rect(MARGIN, y, contentW, 32);
-
   const col1 = MARGIN + 4, col2 = MARGIN + contentW / 2 + 2;
+
+  // Info box — 4 rows
+  fillRect(MARGIN, y, contentW, 44, LGRAY);
+  doc.setDrawColor(...MGRAY);
+  doc.rect(MARGIN, y, contentW, 44);
+
   setFont('bold', 8, RED);
-  doc.text('UNIDADE / LOJA', col1, y + 6);
-  setFont('normal', 9, BLACK);
-  doc.text(unidade, col1, y + 12);
+  doc.text('UNIDADE(S) / LOJA(S)', col1, y + 6);
+  setFont('normal', 8, BLACK);
+  const unidLines = doc.splitTextToSize(unidade, contentW / 2 - 6);
+  doc.text(unidLines[0], col1, y + 12);
 
   setFont('bold', 8, RED);
   doc.text('SUPERVISOR', col2, y + 6);
@@ -1045,15 +1850,15 @@ function gerarPDF() {
   doc.text(supervisor, col2, y + 12);
 
   setFont('bold', 8, RED);
-  doc.text('DATA', col1, y + 20);
+  doc.text('MES', col1, y + 20);
   setFont('normal', 9, BLACK);
-  doc.text(data, col1, y + 26);
+  doc.text(mes, col1, y + 26);
 
   setFont('bold', 8, RED);
-  doc.text('TURNO', col2, y + 20);
+  doc.text('DATA / TURNO', col2, y + 20);
   setFont('normal', 9, BLACK);
-  doc.text(turno, col2, y + 26);
-  y += 38;
+  doc.text(data + ' — ' + turno, col2, y + 26);
+  y += 34;
 
   // ── SCORE BOX
   fillRect(MARGIN, y, contentW, 22, RED);
@@ -1062,7 +1867,7 @@ function gerarPDF() {
   setFont('normal', 9, WHITE);
   doc.text('pontos', MARGIN + 6 + doc.getTextWidth(`${currentScore}`) + 2, y + 14);
   setFont('bold', 9, WHITE);
-  doc.text(`de 1320 máximos  |  ${pct}% de aproveitamento`, col2 - 20, y + 9);
+  doc.text(`de 1320 maximos  |  ${pct}% de aproveitamento`, col2 - 20, y + 9);
   // Bar
   fillRect(col2 - 20, y + 13, 90, 5, [255,255,255,50]);
   fillRect(col2 - 20, y + 13, Math.round(90 * pct / 100), 5, YELLOW);
@@ -1072,7 +1877,7 @@ function gerarPDF() {
 
   // ── SECTION SUMMARIES
   setFont('bold', 10, RED);
-  doc.text('RESUMO POR SEÇÃO', MARGIN, y);
+  doc.text('RESUMO POR SECAO', MARGIN, y);
   y += 5;
 
   SECTIONS.forEach(sec => {
@@ -1167,7 +1972,7 @@ function gerarPDF() {
         const txCol = isOk ? GREEN : RED;
         fillRect(MARGIN + 4, y, contentW - 8, 6, bgCol);
         setFont('bold', 8, txCol);
-        doc.text(`✔ ${ans.label}  (${ans.pts} pts)`, MARGIN + 7, y + 4.5);
+        doc.text('>> ' + ans.label + '  (' + ans.pts + ' pts)', MARGIN + 7, y + 4.5);
         y += 8;
 
         // Action plan
@@ -1175,7 +1980,7 @@ function gerarPDF() {
           checkPage(10);
           fillRect(MARGIN + 4, y, contentW - 8, 6, [255, 243, 205]);
           setFont('bold', 7, [183, 120, 0]);
-          doc.text('⚠ Plano de Ação:', MARGIN + 7, y + 4.5);
+          doc.text('PLANO DE ACAO:', MARGIN + 7, y + 4.5);
           y += 7;
           const apLines = doc.splitTextToSize(ap, contentW - 14);
           checkPage(apLines.length * 4 + 2);
@@ -1185,7 +1990,7 @@ function gerarPDF() {
         }
         // Sub-question
         if (subInp) {
-          const subLines = doc.splitTextToSize(`↳ ${subInp}`, contentW - 14);
+          const subLines = doc.splitTextToSize('Sub-questao: ' + subInp, contentW - 14);
           checkPage(subLines.length * 4 + 4);
           setFont('italic', 7, DGRAY);
           doc.text(subLines, MARGIN + 7, y + 3);
@@ -1199,7 +2004,7 @@ function gerarPDF() {
 
       // Comment
       if (cmt && q.type !== 'text_only') {
-        const cmtLines = doc.splitTextToSize(`💬 ${cmt}`, contentW - 10);
+        const cmtLines = doc.splitTextToSize('Comentario: ' + cmt, contentW - 10);
         checkPage(cmtLines.length * 4 + 4);
         setFont('italic', 7, DGRAY);
         doc.text(cmtLines, MARGIN + 6, y + 3);
@@ -1245,13 +2050,13 @@ function gerarPDF() {
     doc.setPage(i);
     fillRect(0, 285, W, 12, RED);
     setFont('normal', 7, WHITE);
-    doc.text('Drogarias Ultra Popular – Relatório de Supervisão de Loja', MARGIN, 292);
+    doc.text('Drogarias Ultra Popular - Relatorio de Supervisao de Loja', MARGIN, 292);
     setFont('normal', 7, YELLOW);
-    doc.text(`Página ${i} de ${totalPages}`, W - MARGIN - 20, 292);
+    doc.text('Pagina ' + i + ' de ' + totalPages, W - MARGIN - 20, 292);
   }
 
   // ── SAVE
-  const fname = `Avaliacao_${unidade.replace(/\s/g,'_')}_${data}_${turno}.pdf`;
+  const fname = 'Avaliacao_' + unidadesSel.map(l=>l.replace(/\s/g,'')).join('-') + '_' + mes + '_' + turno + '.pdf';
   doc.save(fname);
 
   btn.disabled = false;
@@ -1279,6 +2084,397 @@ buildForm();
 // Set today's date
 const today = new Date().toISOString().split('T')[0];
 document.getElementById('info-data').value = today;
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  PAINEL DO DONO — SENHA, STORAGE E DASHBOARD
+// ══════════════════════════════════════════════════════════════════════════════
+const SENHA_DONO = 'ultra2026';
+const STORAGE_KEY = 'ultraPopularAvaliacoes';
+
+// ── Salvar avaliação no localStorage ──────────────────────────────────────────
+function salvarAvaliacao() {
+  const unidadesSel = getUnidadesSelecionadas();
+  const dataAtual = document.getElementById('info-data').value || new Date().toISOString().split('T')[0];
+  const turno = document.getElementById('turno-val').value || '—';
+  const supervisor = document.getElementById('info-supervisor').value || '—';
+  const pontuacao = currentScore;
+  const percentual = Math.round(currentScore / 1320 * 100);
+  const secoes = SECTIONS.map(sec => {
+    let pts = 0;
+    sec.questions.forEach(q => { if (answers[q.id]) pts += answers[q.id].pts; });
+    return { id: sec.id, titulo: sec.title, pts, maxPts: sec.pts, pct: Math.round(pts / sec.pts * 100) };
+  });
+
+  // Save one record per loja selected (each with its own semana)
+  let lista = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  unidadesSel.forEach(loja => {
+    const semana = getSemanaParaLoja(loja);
+    // Derive mes from data field (month name)
+    const meses = ['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    const mesNum = dataAtual ? parseInt(dataAtual.split('-')[1], 10) - 1 : new Date().getMonth();
+    const mes = meses[mesNum] || '—';
+    lista.push({
+      id: Date.now() + Math.random(),
+      data: dataAtual,
+      turno, supervisor, mes, semana,
+      lojas: [loja],
+      pontuacao, percentual, secoes
+    });
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+}
+
+// ── Senha modal ───────────────────────────────────────────────────────────────
+function abrirSenhaModal() {
+  document.getElementById('senha-modal').classList.add('aberto');
+  document.getElementById('senha-input').value = '';
+  document.getElementById('senha-erro').textContent = '';
+  setTimeout(() => document.getElementById('senha-input').focus(), 100);
+}
+function fecharSenhaModal() {
+  document.getElementById('senha-modal').classList.remove('aberto');
+}
+function verificarSenha() {
+  const val = document.getElementById('senha-input').value;
+  if (val === SENHA_DONO) {
+    fecharSenhaModal();
+    abrirPainel();
+  } else {
+    document.getElementById('senha-erro').textContent = 'Senha incorreta. Tente novamente.';
+    document.getElementById('senha-input').value = '';
+    document.getElementById('senha-input').focus();
+  }
+}
+function abrirPainel() {
+  document.getElementById('formArea').style.display = 'none';
+  document.getElementById('success-screen').style.display = 'none';
+  document.querySelector('.score-tracker').style.display = 'none';
+  document.getElementById('btn-acesso-dono').style.display = 'none';
+  document.getElementById('painel-dono').style.display = 'block';
+  renderPainel();
+}
+function sairPainel() {
+  document.getElementById('painel-dono').style.display = 'none';
+  document.getElementById('formArea').style.display = 'block';
+  document.querySelector('.score-tracker').style.display = 'flex';
+  document.getElementById('btn-acesso-dono').style.display = 'flex';
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function getDados() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+}
+function filtrarDados() {
+  const fMes   = document.getElementById('f-mes').value;
+  const fLoja  = document.getElementById('f-loja').value;
+  const fTurno = document.getElementById('f-turno').value;
+  return getDados().filter(r => {
+    if (fMes   && r.mes   !== fMes)   return false;
+    if (fTurno && r.turno !== fTurno) return false;
+    if (fLoja  && !r.lojas.includes(fLoja)) return false;
+    return true;
+  });
+}
+function corPct(p) {
+  if (p >= 80) return 'verde';
+  if (p >= 50) return 'amarelo';
+  return 'vermelho';
+}
+function iconePct(p) {
+  if (p >= 80) return '✅';
+  if (p >= 50) return '⚠️';
+  return '🔴';
+}
+function limparTodosDados() {
+  if (confirm('Tem certeza? Todos os registros serão apagados.')) {
+    localStorage.removeItem(STORAGE_KEY);
+    renderPainel();
+  }
+}
+
+// ── Render principal ──────────────────────────────────────────────────────────
+function renderPainel() {
+  const dados = filtrarDados();
+
+  renderKPIs(dados);
+  renderAlertas(dados);
+  renderRanking(dados);
+  renderComparativo(dados);
+  renderEvolucao(dados);
+  renderHistorico(dados);
+  popularSelectSecoes(dados);
+}
+
+function popularSelectSecoes(dados) {
+  const sel = document.getElementById('secoes-select');
+  if (!sel) return;
+  const prev = sel.value;
+  sel.innerHTML = '<option value="">— Selecione uma avaliação —</option>';
+  const sorted = [...dados].sort((a,b) => b.id - a.id);
+  sorted.forEach((r, i) => {
+    const loja = r.lojas ? r.lojas.join(', ') : '—';
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = loja + ' | ' + r.semana + ' | ' + r.mes + ' | ' + r.supervisor + ' | ' + r.percentual + '%';
+    opt._data = r;
+    sel.appendChild(opt);
+  });
+  // store sorted on select for access in renderSecoes
+  sel._sorted = sorted;
+  if (prev) sel.value = prev;
+  document.getElementById('secoes-body').innerHTML = '<div class="vazio-msg"><div>📑</div>Selecione uma avaliação acima para ver o desempenho por seção.</div>';
+}
+
+function renderSecoes() {
+  const sel = document.getElementById('secoes-select');
+  const idx = parseInt(sel.value);
+  const body = document.getElementById('secoes-body');
+  if (isNaN(idx) || !sel._sorted) {
+    body.innerHTML = '<div class="vazio-msg"><div>📑</div>Selecione uma avaliação acima para ver o desempenho por seção.</div>';
+    return;
+  }
+  const r = sel._sorted[idx];
+  if (!r || !r.secoes) {
+    body.innerHTML = '<div class="vazio-msg"><div>📑</div>Dados de seção não disponíveis para esta avaliação.</div>';
+    return;
+  }
+  const loja = r.lojas ? r.lojas.join(', ') : '—';
+  let html = '<div style="margin-bottom:10px; font-size:12px; color:#555; font-family:Montserrat,sans-serif; font-weight:600;">'
+    + loja + ' · ' + r.semana + ' · ' + r.mes + ' · Supervisor: ' + r.supervisor + '</div>';
+
+  r.secoes.forEach(sec => {
+    const pct = sec.pct;
+    const bg  = pct >= 80 ? '#e8f5e9' : pct >= 50 ? '#fff9e6' : '#ffeaea';
+    const cor = pct >= 80 ? '#2e7d32' : pct >= 50 ? '#c9a000' : '#CC1F2B';
+    const barW = pct;
+    html += '<div style="margin-bottom:8px;">'
+      + '<div style="display:flex; justify-content:space-between; align-items:center; padding:9px 12px; background:' + bg + '; border-radius:8px;">'
+      + '<span style="font-weight:600; font-size:13px; color:#1a1a1a;">' + sec.id + '. ' + sec.titulo + '</span>'
+      + '<span style="font-weight:800; font-size:13px; color:' + cor + '">' + sec.pts + '/' + sec.maxPts + ' (' + pct + '%)</span>'
+      + '</div>'
+      + '<div style="background:#e0e0e0; border-radius:0 0 6px 6px; height:5px;">'
+      + '<div style="height:5px; width:' + barW + '%; background:' + cor + '; border-radius:0 0 6px 6px; transition:width 0.4s;"></div>'
+      + '</div>'
+      + '</div>';
+  });
+
+  // Total row
+  const bg  = r.percentual >= 80 ? '#e8f5e9' : r.percentual >= 50 ? '#fff9e6' : '#ffeaea';
+  const cor = r.percentual >= 80 ? '#2e7d32' : r.percentual >= 50 ? '#c9a000' : '#CC1F2B';
+  html += '<div style="margin-top:10px; padding:10px 12px; background:' + bg + '; border-radius:8px; display:flex; justify-content:space-between; border:2px solid ' + cor + ';">'
+    + '<span style="font-weight:800; font-size:13px; font-family:Montserrat,sans-serif; color:#1a1a1a;">TOTAL GERAL</span>'
+    + '<span style="font-weight:900; font-size:14px; color:' + cor + '">' + r.pontuacao + '/1320 (' + r.percentual + '%)</span>'
+    + '</div>';
+
+  body.innerHTML = html;
+}
+
+// ── KPIs ──────────────────────────────────────────────────────────────────────
+function renderKPIs(dados) {
+  if (!dados.length) {
+    document.getElementById('kpi-grid').innerHTML =
+      '<div style="grid-column:1/-1; text-align:center; color:#aaa; font-size:13px; padding:10px;">Nenhuma avaliação encontrada</div>';
+    return;
+  }
+  const total = dados.length;
+  const mediaPct = Math.round(dados.reduce((s,r) => s + r.percentual, 0) / total);
+  const melhores = dados.filter(r => r.percentual >= 80).length;
+
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi-card">
+      <div class="kpi-num">${total}</div>
+      <div class="kpi-label">Avaliações</div>
+    </div>
+    <div class="kpi-card ${corPct(mediaPct)}">
+      <div class="kpi-num">${mediaPct}%</div>
+      <div class="kpi-label">Média Geral</div>
+    </div>
+    <div class="kpi-card verde">
+      <div class="kpi-num">${melhores}</div>
+      <div class="kpi-label">Acima de 80%</div>
+    </div>`;
+}
+
+// ── Alertas ───────────────────────────────────────────────────────────────────
+function renderAlertas(dados) {
+  if (!dados.length) {
+    document.getElementById('alertas-body').innerHTML =
+      '<div class="vazio-msg"><div>📭</div>Sem dados para analisar.</div>';
+    return;
+  }
+
+  // Agrupa por loja + semana
+  const mapa = {};
+  dados.forEach(r => {
+    r.lojas.forEach(loja => {
+      const chave = loja;
+      if (!mapa[chave]) mapa[chave] = [];
+      mapa[chave].push(r);
+    });
+  });
+
+  const alertas = [];
+  const SEMANAS_ORD = ['1a Semana','2a Semana','3a Semana','4a Semana'];
+
+  Object.entries(mapa).forEach(([loja, regs]) => {
+    // Ordenar por semana
+    const comSemana = regs.filter(r => SEMANAS_ORD.includes(r.semana))
+      .sort((a,b) => SEMANAS_ORD.indexOf(a.semana) - SEMANAS_ORD.indexOf(b.semana));
+
+    if (comSemana.length >= 2) {
+      const ultimos = comSemana.slice(-2);
+      const diff = ultimos[1].percentual - ultimos[0].percentual;
+      if (diff <= -15) {
+        alertas.push({ tipo:'vermelho', loja,
+          msg: `Queda de <strong>${Math.abs(diff)}%</strong> entre ${ultimos[0].semana} (${ultimos[0].percentual}%) e ${ultimos[1].semana} (${ultimos[1].percentual}%).` });
+      } else if (diff <= -8) {
+        alertas.push({ tipo:'amarelo', loja,
+          msg: `Leve queda de <strong>${Math.abs(diff)}%</strong> entre ${ultimos[0].semana} e ${ultimos[1].semana}.` });
+      } else if (diff >= 10) {
+        alertas.push({ tipo:'verde', loja,
+          msg: `Melhora de <strong>${diff}%</strong> entre ${ultimos[0].semana} e ${ultimos[1].semana}!` });
+      }
+    }
+    // Baixo desempenho absoluto
+    const mediaLoja = Math.round(regs.reduce((s,r)=>s+r.percentual,0)/regs.length);
+    if (mediaLoja < 50) {
+      alertas.push({ tipo:'vermelho', loja,
+        msg: `Média geral de apenas <strong>${mediaLoja}%</strong>. Requer atenção imediata.` });
+    }
+  });
+
+  if (!alertas.length) {
+    document.getElementById('alertas-body').innerHTML =
+      '<div class="alerta-item verde"><span class="alerta-icon">✅</span><span class="alerta-txt">Nenhum alerta. Todas as lojas estão dentro do esperado.</span></div>';
+    return;
+  }
+
+  document.getElementById('alertas-body').innerHTML = alertas.map(a => `
+    <div class="alerta-item ${a.tipo}">
+      <span class="alerta-icon">${a.tipo==='vermelho'?'🔴':a.tipo==='amarelo'?'⚠️':'✅'}</span>
+      <span class="alerta-txt"><strong>${a.loja}</strong> — ${a.msg}</span>
+    </div>`).join('');
+}
+
+// ── Ranking ───────────────────────────────────────────────────────────────────
+function renderRanking(dados) {
+  if (!dados.length) {
+    document.getElementById('ranking-body').innerHTML =
+      '<div class="vazio-msg"><div>🏆</div>Nenhuma avaliação ainda.</div>'; return;
+  }
+  const mapa = {};
+  dados.forEach(r => {
+    r.lojas.forEach(loja => {
+      if (!mapa[loja]) mapa[loja] = [];
+      mapa[loja].push(r.percentual);
+    });
+  });
+  const ranking = Object.entries(mapa)
+    .map(([loja, pcts]) => ({ loja, media: Math.round(pcts.reduce((s,p)=>s+p,0)/pcts.length), qtd: pcts.length }))
+    .sort((a,b) => b.media - a.media);
+
+  const maxMedia = ranking[0]?.media || 100;
+  document.getElementById('ranking-body').innerHTML = ranking.map((r, i) => `
+    <div class="rank-item">
+      <div class="rank-pos" style="color:${i===0?'#F5C400':i===1?'#aaa':i===2?'#cd7f32':'#CC1F2B'}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</div>
+      <div class="rank-loja">${r.loja}<br><span style="font-size:10px;color:#aaa;font-weight:400">${r.qtd} avaliação(ões)</span></div>
+      <div class="rank-bar-wrap"><div class="rank-bar-fill" style="width:${Math.round(r.media/maxMedia*100)}%; background:${r.media>=80?'#2e7d32':r.media>=50?'#c9a000':'#CC1F2B'}"></div></div>
+      <div class="rank-pts" style="color:${r.media>=80?'#2e7d32':r.media>=50?'#c9a000':'#CC1F2B'}">${r.media}%</div>
+    </div>`).join('');
+}
+
+// ── Comparativo ───────────────────────────────────────────────────────────────
+function renderComparativo(dados) {
+  const SEMANAS = ['1a Semana','2a Semana','3a Semana','4a Semana'];
+  const LABELS  = ['1ª Sem','2ª Sem','3ª Sem','4ª Sem'];
+
+  if (!dados.length) {
+    document.getElementById('comparativo-body').innerHTML =
+      '<div class="vazio-msg"><div>📊</div>Sem dados para comparar.</div>'; return;
+  }
+  const lojas = [...new Set(dados.flatMap(r => r.lojas))].sort();
+
+  let html = `<table class="comp-table"><thead><tr>
+    <th>Loja</th>${SEMANAS.map((s,i)=>`<th>${LABELS[i]}</th>`).join('')}<th>Média</th></tr></thead><tbody>`;
+
+  lojas.forEach(loja => {
+    const row = SEMANAS.map(sem => {
+      const regs = dados.filter(r => r.lojas.includes(loja) && r.semana === sem);
+      if (!regs.length) return null;
+      return Math.round(regs.reduce((s,r)=>s+r.percentual,0)/regs.length);
+    });
+    const valid = row.filter(v=>v!==null);
+    const media = valid.length ? Math.round(valid.reduce((s,v)=>s+v,0)/valid.length) : null;
+
+    html += `<tr><td style="font-weight:700">${loja}</td>`;
+    row.forEach((v,i) => {
+      if (v===null) { html += `<td style="color:#ccc">—</td>`; return; }
+      // seta tendência
+      let seta = '';
+      if (i>0 && row[i-1]!==null) seta = v > row[i-1] ? ' ↑' : v < row[i-1] ? ' ↓' : '';
+      html += `<td><span class="badge-rank ${corPct(v)}">${v}%${seta}</span></td>`;
+    });
+    html += `<td><strong style="color:${media>=80?'#2e7d32':media>=50?'#c9a000':'#CC1F2B'}">${media!==null?media+'%':'—'}</strong></td></tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('comparativo-body').innerHTML = html;
+}
+
+// ── Evolução ──────────────────────────────────────────────────────────────────
+function renderEvolucao(dados) {
+  const SEMANAS = ['1a Semana','2a Semana','3a Semana','4a Semana'];
+  const LABELS  = ['1ª Sem','2ª Sem','3ª Sem','4ª Sem'];
+
+  if (!dados.length) {
+    document.getElementById('evolucao-body').innerHTML =
+      '<div class="vazio-msg"><div>📈</div>Sem dados.</div>'; return;
+  }
+  const lojas = [...new Set(dados.flatMap(r => r.lojas))].sort();
+  let html = '';
+
+  lojas.forEach(loja => {
+    const semVals = SEMANAS.map(sem => {
+      const regs = dados.filter(r => r.lojas.includes(loja) && r.semana === sem);
+      return regs.length ? Math.round(regs.reduce((s,r)=>s+r.percentual,0)/regs.length) : null;
+    });
+    html += `<div class="evolucao-loja-bloco">
+      <div class="evolucao-loja-titulo">📍 ${loja}</div>
+      <div class="evolucao-semanas">`;
+    semVals.forEach((v, i) => {
+      let seta = '';
+      if (i > 0 && semVals[i-1] !== null && v !== null) {
+        seta = v > semVals[i-1] ? ' ↑' : v < semVals[i-1] ? ' ↓' : ' →';
+      }
+      const cls = v === null ? '' : v >= 80 ? 's-verde' : v >= 50 ? 's-amarelo' : 's-vermelho';
+      html += `<div class="ev-sem ${cls}">
+        <div class="ev-sem-label">${LABELS[i]}</div>
+        <div class="ev-sem-pts" style="color:${v===null?'#ccc':v>=80?'#2e7d32':v>=50?'#c9a000':'#CC1F2B'}">${v!==null?v+'%':'—'}<span style="font-size:11px">${seta}</span></div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  document.getElementById('evolucao-body').innerHTML = html || '<div class="vazio-msg"><div>📈</div>Sem dados suficientes.</div>';
+}
+
+// ── Histórico ─────────────────────────────────────────────────────────────────
+function renderHistorico(dados) {
+  if (!dados.length) {
+    document.getElementById('historico-body').innerHTML =
+      '<div class="vazio-msg"><div>📋</div>Nenhuma avaliação salva ainda.<br><span style="font-size:12px">Os supervisores precisam finalizar o formulário para os dados aparecerem aqui.</span></div>';
+    return;
+  }
+  const sorted = [...dados].sort((a,b) => b.id - a.id).slice(0, 30);
+  document.getElementById('historico-body').innerHTML = sorted.map(r => {
+    const cor = r.percentual >= 80 ? '#2e7d32' : r.percentual >= 50 ? '#c9a000' : '#CC1F2B';
+    return `<div class="hist-item" style="border-left-color:${cor}">
+      <div class="hist-item-top">
+        <span class="hist-item-loja">${r.lojas.join(', ')} — ${r.semana}</span>
+        <span class="hist-item-pts" style="color:${cor}">${r.percentual}%</span>
+      </div>
+      <div class="hist-item-meta">${r.mes} • ${r.turno} • Supervisor: ${r.supervisor} • ${r.data} • ${r.pontuacao}/1320 pts</div>
+    </div>`;
+  }).join('');
+}
 </script>
 </body>
 </html>
